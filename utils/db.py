@@ -4,7 +4,7 @@ from firebase_admin import db
 import firebase_admin
 
 cred = credentials.Certificate('constants/firestore-config.json')
-firebase_admin.initialize_app(cred, {'databaseURL': "https://project-saver-883db-default-rtdb.europe-west1.firebasedatabase.app/"})
+firebase_admin.initialize_app(cred, {'databaseURL': "https://PROJECT_NAME.firebasedatabase.app/"})
 
 proj_ref = db.reference('projects')
 
