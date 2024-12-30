@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Saver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-mdev.png') }}" type="image/png">
+
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Project Saver Panel</h1>
+            <p>This panel is designed for project control.</p>
+        </div>
+        <div class="task-wrapper">
+            <table class="task_container">
+    
+                <tr>
+                    <th>Project</th>
+                    <th>API-key</th>
+                    <th>Actions</th>
+                </tr>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project['name'] }}</td>
+                        <td><code>{{ project['api'] }}</code></td>
+                        <td>
+                            <div class="action-buttons">
+                                <form action="/" method="post">
+                                    <a href="/update/{{ project['name'] }}" class="update button">Update key</a>
+                                </form>
+                                <button type="submit" class="delete button" data-project-name="{{ project['name'] }}">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <form action="/" method="post" class="submit-form">
+            <div class="inputs">
+                <input type="text" name="project_name" class="project_name_input" placeholder="Enter project name..">
+                <input type="submit" value="Add project" class="project_name_submit button">
+            </div>
+            {% if error_messages %}
+                <p class="error">{{ error_messages }}</p>
+            {% endif %}
+
+        </form>
+        
+        <div class="popup-overlay">
+            <div class="popup-content">
+                <div class="popup-content-description">
+                    <h2>You're about to delete the project. Are you sure?</h2>
+                    <p>This action cannot be undone</p>
+                </div>
+
+                <div class="popup-content-actions">
+                    <form method="post" class="popup-form">
+                        <button type="submit" class="popup_yes button">Yes</button>
+                    </form>
+                    <button type="button" class="popup_no button" onclick="closePopup()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
